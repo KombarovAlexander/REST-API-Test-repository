@@ -1,0 +1,31 @@
+[{
+  "query": "Емельян Пугачев",
+  "fullSimilarity": false,
+  "count": 0,
+  "code": 230
+}, {
+  "query": "Сидоров",
+  "fullSimilarity": true,
+  "count": 1,
+  "code": 231
+},{
+  "query": "Сидоров",
+  "fullSimilarity": false,
+  "count": 2,
+  "code": 232
+},{
+  "query": "Цирк и клоуны",
+  "fullSimilarity": true,
+  "count": 1,
+  "code": 233
+},{
+  "query": "Цирк",
+  "fullSimilarity": false,
+  "count": 2,
+  "code": 234
+},{
+  "query": "Цирк Сидоров",
+  "fullSimilarity": false,
+  "count": 2,
+  "code": 235
+}]

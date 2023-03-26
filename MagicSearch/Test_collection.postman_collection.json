@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "9544a770-0598-4a8d-87dd-a2418707bafa",
+		"name": "Test collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23386398"
+	},
+	"item": [
+		{
+			"name": "Задание 28 MagicSearch Статус коды из файла",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"let orStCode = pm.iterationData.get(\"code\");\r",
+							"let orCount = pm.iterationData.get(\"count\");\r",
+							"\r",
+							"pm.test(`Получен верный статус-код [Статус-код: ${orStCode}]`, function () {\r",
+							"    pm.expect(pm.response.code).to.eql(orStCode);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Получен верный статус-код [Статус: OK]\", function () {\r",
+							"    pm.response.to.have.status(\"Ok\".toUpperCase());\r",
+							"});\r",
+							"\r",
+							"if (orCount < 2) {\r",
+							"    pm.test(`Количество подсказок равно ${orCount}`, function () {\r",
+							"        pm.expect(jsonData.foundCount).to.eql(orCount);\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test(`Количество подсказок больше или равно ${orCount}`, function () {\r",
+							"        pm.expect(jsonData.foundCount).to.be.least(orCount);\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let curQuery = pm.iterationData.get(\"query\");\r",
+							"pm.collectionVariables.set(\"iterationQuery\", JSON.stringify(curQuery));\r",
+							"\r",
+							"// В теле запроса строка Query должна быть в кавычках, но из pm.iterationData она попадала в тело запроса без кавычек\r",
+							"// Поэтому пришлось использовать переходник pm.collectionVariables.set(\"iterationQuery\", JSON.stringify(curQuery))\r",
+							"// Данные для итерации грузились из json-файла:\r",
+							"/*[{\r",
+							"  \"query\": \"Емельян Пугачев\",\r",
+							"  \"fullSimilarity\": false,\r",
+							"  \"count\": 0,\r",
+							"  \"code\": 230\r",
+							"}, {\r",
+							"  \"query\": \"Фёдоров\",\r",
+							"  \"fullSimilarity\": false,\r",
+							"  \"count\": 1,\r",
+							"  \"code\": 231\r",
+							"},{\r",
+							"  \"query\": \"Сидоров\",\r",
+							"  \"fullSimilarity\": false,\r",
+							"  \"count\": 2,\r",
+							"  \"code\": 232\r",
+							"},{\r",
+							"  \"query\": \"Цирк и клоуны\",\r",
+							"  \"fullSimilarity\": true,\r",
+							"  \"count\": 1,\r",
+							"  \"code\": 233\r",
+							"},{\r",
+							"  \"query\": \"Цирк\",\r",
+							"  \"fullSimilarity\": false,\r",
+							"  \"count\": 2,\r",
+							"  \"code\": 234\r",
+							"},{\r",
+							"  \"query\": \"Цирк Сидоров\",\r",
+							"  \"fullSimilarity\": false,\r",
+							"  \"count\": 2,\r",
+							"  \"code\": 235\r",
+							"}] */"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"query\":{{iterationQuery}},\r\n\"fullSimilarity\":{{fullSimilarity}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://users.bugred.ru/tasks/rest/magicsearch",
+					"protocol": "http",
+					"host": [
+						"users",
+						"bugred",
+						"ru"
+					],
+					"path": [
+						"tasks",
+						"rest",
+						"magicsearch"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "iterationQuery",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
